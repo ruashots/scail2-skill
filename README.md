@@ -52,9 +52,14 @@ python3 scripts/scail2.py animate --character character.png --motion dance.mp4
 
 The engine **auto-detects the ComfyUI path** from its API; override with `COMFY_URL`, `COMFY_DIR`, `DELIVER_DIR` if needed.
 
-## The one rule that decides quality
+## The one rule that decides quality (both modes)
 
-**Match the reference to the driving clip's first frame.** Best results come when the reference person is framed, scaled, and posed like the subject in the clip's **first frame** (full-body↔full-body, headshot↔headshot, similar pose/position). A large gap there yields a soft, muddy result — the model can't auto-fix it. Extract the first frame (`ffmpeg -i clip.mp4 -frames:v 1 first.png`) and pick or generate a matched reference.
+**Match the reference to the driving clip's first frame.** Best results come when the reference person is framed, scaled, and posed like the **subject in the clip's first frame** — same scale (full-body↔full-body, headshot↔headshot) and similar pose/position. Per mode:
+
+- **`replace`** — match your new person to the **person being swapped out** at frame 1.
+- **`animate`** — match your character's pose/framing to the **motion subject's frame-1 pose**, so the motion starts cleanly instead of snapping.
+
+A large gap yields a soft, muddy result — the model can't auto-fix it. Extract the first frame (`ffmpeg -i clip.mp4 -frames:v 1 first.png`) and pick or generate a matched reference.
 
 More detail — internals, every parameter, the multi-character recipe, and troubleshooting — in **[`references/reference.md`](references/reference.md)**.
 

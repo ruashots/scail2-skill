@@ -36,7 +36,7 @@ The engine handles all I/O sizing and timing automatically (below).
 
 ## Quality rules (and why they hold)
 
-- **First-frame match (dominant rule).** The reference subject should be framed/scaled/posed like the driver subject in **frame 1**. The bigger the gap, the more the model must reconcile and the softer/muddier the result. The engine cannot auto-fix this — supply a matched reference (extract `ffmpeg -i CLIP.mp4 -frames:v 1 first.png`, then match/generate against it; `ideogram4` can generate a matched portrait).
+- **First-frame match (dominant rule — both modes).** The reference subject should be framed/scaled/posed like the driver subject in **frame 1**. For `replace`, that subject is the **person being swapped out**; for `animate`, it's the **motion subject** whose frame-1 pose the character starts from. The bigger the gap, the more the model must reconcile and the softer/muddier the result. The engine cannot auto-fix this — supply a matched reference (extract `ffmpeg -i CLIP.mp4 -frames:v 1 first.png`, then match/generate against it; `ideogram4` can generate a matched portrait).
 - **Aspect = background source** (handled automatically; the reason the engine reads dimensions from the footage in `replace` and the character in `animate`).
 - **704p** for finals; **detailed `--describe`** for `replace` fidelity.
 

@@ -7,11 +7,12 @@ your harness: "run a shell command" = Bash/exec/shell; "read a file" = Read/cat.
 ## The contract
 
 1. **Read `SKILL.md` first** — it's the craft, not boilerplate. The load-bearing rules:
-   - **FIRST-FRAME MATCH (the rule that decides quality).** Best results come when the reference
-     person is framed, scaled, and posed like the subject in the driving clip's **first frame**
-     (full-body↔full-body, headshot↔headshot, similar pose/position). A big gap → soft/muddy output;
-     the model cannot auto-fix it. Extract the first frame (`ffmpeg -i CLIP.mp4 -frames:v 1 first.png`)
-     and pick or generate a matched reference.
+   - **FIRST-FRAME MATCH (the rule that decides quality — applies to BOTH modes).** Best results come
+     when the reference person is framed, scaled, and posed like the subject in the driving clip's
+     **first frame** (full-body↔full-body, headshot↔headshot, similar pose/position). For `replace`,
+     match the person being swapped out; for `animate`, match the motion subject's frame-1 pose. A big
+     gap → soft/muddy output; the model cannot auto-fix it. Extract the first frame
+     (`ffmpeg -i CLIP.mp4 -frames:v 1 first.png`) and pick or generate a matched reference.
    - **Two distinct prompts.** `--detect` is the SAM3 detection prompt (WHAT to track in the clip);
      `--describe` is the diffusion prompt (the RESULTING scene, for fidelity). They are not the same.
    - **Don't set sizing/timing** — output aspect, resolution, length, fps, and which background is kept
